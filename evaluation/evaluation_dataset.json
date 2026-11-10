@@ -1,0 +1,83 @@
+
+[
+  {
+    "id": "TEST_001",
+    "question": "Calculate net transaction flow in EUR",
+    "expected_metric": "SUM(signed_amount)",
+    "expected_filter": "currency = 'EUR'"
+  },
+  {
+    "id": "TEST_002",
+    "question": "Calculate gross transaction volume",
+    "expected_metric": "SUM(amount)"
+  },
+  {
+    "id": "TEST_003",
+    "question": "Calculate gross transaction volume in EUR",
+    "expected_metric": "SUM(amount)",
+    "expected_filter": "currency = 'EUR'"
+  },
+  {
+    "id": "TEST_004",
+    "question": "Calculate net transaction flow in USD",
+    "expected_metric": "SUM(signed_amount)",
+    "expected_filter": "currency = 'USD'"
+  },
+  {
+    "id": "TEST_005",
+    "question": "Show top 5 customers by net transaction flow in EUR",
+    "expected_metric": "SUM(signed_amount)",
+    "expected_filter": "currency = 'EUR'",
+    "expected_tables": [
+      "analytics.fact_transactions",
+      "analytics.dim_customers"
+    ],
+    "expected_limit": 5,
+    "expected_order": "DESC"
+  },
+  {
+    "id": "TEST_006",
+    "question": "Show gross transaction volume by branch",
+    "expected_metric": "SUM(amount)",
+    "expected_tables": [
+      "analytics.fact_transactions",
+      "analytics.dim_branches"
+    ]
+  },
+  {
+    "id": "TEST_007",
+    "question": "Show net transaction flow by customer",
+    "expected_metric": "SUM(signed_amount)",
+    "expected_tables": [
+      "analytics.fact_transactions",
+      "analytics.dim_customers"
+    ]
+  },
+  {
+    "id": "TEST_008",
+    "question": "Show top 10 customers by gross transaction volume",
+    "expected_metric": "SUM(amount)",
+    "expected_tables": [
+      "analytics.fact_transactions",
+      "analytics.dim_customers"
+    ],
+    "expected_limit": 10,
+    "expected_order": "DESC"
+  },
+  {
+    "id": "TEST_009",
+    "question": "Calculate net transaction flow in GBP",
+    "expected_metric": "SUM(signed_amount)",
+    "expected_filter": "currency = 'GBP'"
+  },
+  {
+    "id": "TEST_010",
+    "question": "Show gross transaction volume by branch in EUR",
+    "expected_metric": "SUM(amount)",
+    "expected_filter": "currency = 'EUR'",
+    "expected_tables": [
+      "analytics.fact_transactions",
+      "analytics.dim_branches"
+    ]
+  }
+]

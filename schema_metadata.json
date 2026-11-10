@@ -1,0 +1,27 @@
+
+{
+  "relationships": [
+    {
+      "from": "analytics.fact_transactions.customer_id",
+      "to": "analytics.dim_customers.customer_id",
+      "type": "many_to_one"
+    },
+    {
+      "from": "analytics.fact_transactions.account_id",
+      "to": "analytics.dim_accounts.account_id",
+      "type": "many_to_one"
+    },
+    {
+      "from": "analytics.fact_transactions.branch_id",
+      "to": "analytics.dim_branches.branch_id",
+      "type": "many_to_one"
+    }
+  ],
+  "business_rules": {
+    "amount": "Use SUM(amount) for gross transaction volume. Do not add status filters unless explicitly requested or required by a defined business metric.",
+    "signed_amount": "Use SUM(signed_amount) only when calculating net transaction flows.",
+    "currency": "If the user specifies a currency, filter fact_transactions.currency accordingly. Never aggregate different currencies without conversion.",
+    "transaction_status": "Apply transaction_status = 'completed' only when the user explicitly requests completed transactions or a business metric explicitly requires it.",
+    "customer_id": "Join customer tables using customer_id."
+  }
+}

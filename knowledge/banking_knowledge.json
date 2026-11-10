@@ -1,0 +1,22 @@
+[
+  {
+    "document_key": "KPI_001",
+    "title": "Gross Transaction Volume",
+    "content": "Gross Transaction Volume is calculated using SUM(amount) from analytics.fact_transactions. Use SUM(amount), not SUM(signed_amount), for gross transaction volume."
+  },
+  {
+    "document_key": "KPI_002",
+    "title": "Net Transaction Flow",
+    "content": "Net Transaction Flow is calculated using SUM(signed_amount) from analytics.fact_transactions. Use this metric when the user requests net transaction flow."
+  },
+  {
+    "document_key": "RULE_001",
+    "title": "Currency Filter",
+    "content": "When the user requests transactions in EUR, filter analytics.fact_transactions using currency = 'EUR'. Apply the currency filter before aggregation."
+  },
+  {
+    "document_key": "RULE_002",
+    "title": "High-Value Transaction",
+    "content": "For this banking lab, a High-Value Transaction is defined as a transaction with amount greater than 10000 and currency = 'EUR' in analytics.fact_transactions. Use amount > 10000 AND currency = 'EUR' when the user requests high-value transactions."
+  }
+]

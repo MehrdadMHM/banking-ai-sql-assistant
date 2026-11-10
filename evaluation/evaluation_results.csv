@@ -1,0 +1,244 @@
+﻿test_id,mode,passed,duration_seconds,checks,retrieved_keys,validation_error,generated_sql
+TEST_001,BASELINE,True,132.36,"{""metric"": true, ""filter"": true}",,,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(t.signed_amount) AS net_transaction_flow_eur
+FROM 
+    analytics.fact_transactions t
+JOIN 
+    analytics.dim_customers c ON t.customer_id = c.customer_id
+WHERE 
+    t.currency = 'EUR'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_001,RAG,True,48.96,"{""metric"": true, ""filter"": true}","KPI_002,RULE_001,KPI_001",,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.signed_amount) AS net_transaction_flow
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.currency = 'EUR'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_002,BASELINE,True,24.38,"{""metric"": true}",,,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(t.amount) AS gross_transaction_volume
+FROM 
+    analytics.fact_transactions t
+JOIN 
+    analytics.dim_customers c ON t.customer_id = c.customer_id
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_002,RAG,True,37.46,"{""metric"": true}","KPI_001,KPI_002,RULE_001",,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(t.amount) AS gross_transaction_volume
+FROM 
+    analytics.fact_transactions t
+JOIN 
+    analytics.dim_customers c ON t.customer_id = c.customer_id
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_003,BASELINE,True,24.14,"{""metric"": true, ""filter"": true}",,,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.amount) AS gross_transaction_volume_eur
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.currency = 'EUR'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_003,RAG,True,35.88,"{""metric"": true, ""filter"": true}","KPI_001,KPI_002,RULE_001",,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.amount) AS gross_transaction_volume
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.currency = 'EUR'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_004,BASELINE,True,26.54,"{""metric"": true, ""filter"": true}",,,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.signed_amount) AS net_transaction_flow_usd
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.currency = 'USD'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_004,RAG,True,30.82,"{""metric"": true, ""filter"": true}","KPI_002,KPI_001,RULE_001",,"SELECT 
+    SUM(fact_transactions.signed_amount) AS net_transaction_flow
+FROM 
+    analytics.fact_transactions
+WHERE 
+    fact_transactions.currency = 'USD';"
+TEST_005,BASELINE,True,33.09,"{""metric"": true, ""filter"": true, ""tables"": true, ""limit"": true, ""order"": true}",,,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.signed_amount) AS net_transaction_flow
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.currency = 'EUR'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name
+ORDER BY 
+    net_transaction_flow DESC
+LIMIT 5;"
+TEST_005,RAG,True,46.86,"{""metric"": true, ""filter"": true, ""tables"": true, ""limit"": true, ""order"": true}","KPI_002,RULE_001,KPI_001",,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.signed_amount) AS net_transaction_flow
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.currency = 'EUR'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name
+ORDER BY 
+    net_transaction_flow DESC
+LIMIT 5;"
+TEST_006,BASELINE,True,21.3,"{""metric"": true, ""tables"": true}",,,"SELECT 
+    b.branch_name,
+    SUM(t.amount) AS gross_transaction_volume
+FROM 
+    analytics.fact_transactions t
+JOIN 
+    analytics.dim_branches b ON t.branch_id = b.branch_id
+GROUP BY 
+    b.branch_name;"
+TEST_006,RAG,True,31.99,"{""metric"": true, ""tables"": true}","KPI_001,KPI_002,RULE_001",,"SELECT 
+    b.branch_name,
+    SUM(t.amount) AS gross_transaction_volume
+FROM 
+    analytics.fact_transactions t
+JOIN 
+    analytics.dim_branches b ON t.branch_id = b.branch_id
+GROUP BY 
+    b.branch_name;"
+TEST_007,BASELINE,True,21.42,"{""metric"": true, ""tables"": true}",,,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(t.signed_amount) AS net_transaction_flow
+FROM 
+    analytics.fact_transactions t
+JOIN 
+    analytics.dim_customers c ON t.customer_id = c.customer_id
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_007,RAG,True,38.89,"{""metric"": true, ""tables"": true}","KPI_002,KPI_001,RULE_001",,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.signed_amount) AS net_transaction_flow
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.transaction_status = 'completed'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_008,BASELINE,True,27.98,"{""metric"": true, ""tables"": true, ""limit"": true, ""order"": true}",,,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(t.amount) AS gross_transaction_volume
+FROM 
+    analytics.fact_transactions t
+JOIN 
+    analytics.dim_customers c ON t.customer_id = c.customer_id
+GROUP BY 
+    c.customer_id, 
+    c.customer_name
+ORDER BY 
+    gross_transaction_volume DESC
+LIMIT 10;"
+TEST_008,RAG,True,45.6,"{""metric"": true, ""tables"": true, ""limit"": true, ""order"": true}","KPI_001,KPI_002,RULE_001",,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(t.amount) AS gross_transaction_volume
+FROM 
+    analytics.fact_transactions t
+JOIN 
+    analytics.dim_customers c ON t.customer_id = c.customer_id
+GROUP BY 
+    c.customer_id, 
+    c.customer_name
+ORDER BY 
+    gross_transaction_volume DESC
+LIMIT 10;"
+TEST_009,BASELINE,True,29.59,"{""metric"": true, ""filter"": true}",,,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.signed_amount) AS net_transaction_flow_gbp
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.currency = 'GBP'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_009,RAG,True,43.62,"{""metric"": true, ""filter"": true}","KPI_002,KPI_001,RULE_001",,"SELECT 
+    c.customer_id, 
+    c.customer_name, 
+    SUM(ft.signed_amount) AS net_transaction_flow
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_customers c ON ft.customer_id = c.customer_id
+WHERE 
+    ft.currency = 'GBP'
+GROUP BY 
+    c.customer_id, 
+    c.customer_name;"
+TEST_010,BASELINE,True,25.23,"{""metric"": true, ""filter"": true, ""tables"": true}",,,"SELECT 
+    b.branch_name,
+    SUM(ft.amount) AS gross_transaction_volume_eur
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_branches b ON ft.branch_id = b.branch_id
+WHERE 
+    ft.currency = 'EUR'
+GROUP BY 
+    b.branch_name;"
+TEST_010,RAG,True,40.28,"{""metric"": true, ""filter"": true, ""tables"": true}","KPI_001,RULE_001,KPI_002",,"SELECT 
+    b.branch_name,
+    SUM(ft.amount) AS gross_transaction_volume
+FROM 
+    analytics.fact_transactions ft
+JOIN 
+    analytics.dim_branches b ON ft.branch_id = b.branch_id
+WHERE 
+    ft.currency = 'EUR'
+GROUP BY 
+    b.branch_name;"
